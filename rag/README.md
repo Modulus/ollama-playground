@@ -48,3 +48,9 @@ To use RAG, the following steps worked for me (I have LLama3 + Open WebUI v0.3.5
 
 # RAG course youtube
 https://www.youtube.com/watch?v=V1Mz8gMBDMo
+
+
+# QDrant stuff
+    REST API: localhost:6333
+    Web UI: localhost:6333/dashboard
+    GRPC API: localhost:6334
