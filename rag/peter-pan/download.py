@@ -1,7 +1,7 @@
 import urllib.request
 
 
-def download(url):
+def download(url)  -> str:
     return urllib.request.urlopen(url).read().decode('utf-8')
 
 def save(text, filename):

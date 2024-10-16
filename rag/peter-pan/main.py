@@ -3,7 +3,6 @@ import os
 import json
 import numpy as np
 from numpy.linalg import norm
-from textwrap import wrap
 # MODEL_NAME = "ollama3.2"
 MODEL_NAME="nomic-embed-text"
 # MODEL_NAME = "mistral"

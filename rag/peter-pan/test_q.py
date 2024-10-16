@@ -33,16 +33,17 @@ client.upsert(
     points=Batch(
         ids=[1],
         vectors=[embeddings],
+        
     )
 )
 
-client.add(
-    collection_name=name,
-    points=Batch(
-        ids=[2],
-        vectors=[ollama.embeddings(model="nomic-embed-text", prompt="Ollama excels in niche applications with specific embeddings.")["embedding"]],
-    )
-)
+# client.upsert(
+#     collection_name=name,
+#     points=Batch(
+#         ids=[2],
+#         vectors=[ollama.embeddings(model="nomic-embed-text", prompt="Ollama excels in niche applications with specific embeddings.")["embedding"]],
+#     )
+# )
 
 
 prompt = "What does Ollama excel in?"
@@ -61,5 +62,6 @@ result = client.search(
     limit=1
 )
 
-print(result)
+ollama.generate(model="llama3.2", )
+
 
