@@ -16,3 +16,9 @@ Current setup uses nomic-embed-text model to create embeddings
 Then we use llama3.2 to chat with. 
 
 If you want to change models, remember to delete the embeddings folder
+
+
+## Use this as inspiration for qdrant
+https://ollama.com/blog/embedding-models
+
+http://localhost:6333/dashboard

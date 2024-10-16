@@ -12,5 +12,5 @@ def handle(url, filename):
     text = download(url)
     save(text, filename)
 
-
-handle(url="https://www.gutenberg.org/cache/epub/16/pg16.txt", filename="peterpan.txt")
+if __name__ == "__main__":
+    handle(url="https://www.gutenberg.org/cache/epub/16/pg16.txt", filename="peterpan.txt")

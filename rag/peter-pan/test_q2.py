@@ -2,7 +2,7 @@ import qdrant_client
 from qdrant_client.models import Batch
 from qdrant_client import models
 import ollama
-
+import random
 # Initialize Ollama model
 
 # Generate embeddings for niche applications
@@ -51,14 +51,14 @@ name = "demo"
 # except qdrant_client.http.exceptions.UnexpectedResponse as e:
 #     response = client.create_collection(collection_name=name,
 #                                             vectors_config=models.VectorParams(
-#                                                 size=768,
+#                                                 size=384,
 #                                                 distance=models.Distance.COSINE,
 
 #                                             )
-                                        # )
+#                                         )
 
 # Upsert the embedding into Qdrant
-
+# client.add will use fast embeddings insertion
 client.add(
     collection_name=name,
     documents=documents,
@@ -66,18 +66,46 @@ client.add(
     ids=range(len(documents))
 )
 
+questions = [
+                "What happens May 5-7 in 2024", 
+                "What is the AI Innovations Summit?", 
+                "When is the Global EdTech Conference?", 
+                "Where is the Renewable Energy Tech Conference?", 
+                "Who attends the Blockchain Expo Global?", 
+                "Why attend the Digital Marketing Summit?", 
+                "How to participate in the Global Developers Conference?",
+                "What happens in May 2024? Give answers as a list",
+                "What events are going on in 2024? Give answers as a list"
+                ]
 
+prompt = random.choice(questions) #questions[len(questions)-1] #
 
-prompt = "What does Ollama excel in?"
+print(f"Sending prompt: {prompt}")
 
-response = ollama.embeddings(
-  prompt=prompt,
-  model="nomic-embed-text" #mxbai-embed-large
-)
+print("\n\n")
+
+# response = ollama.embeddings(
+#   prompt=prompt,
+#   model="nomic-embed-text" #mxbai-embed-large
+# )
 
 
 search_result = client.query(
-    collection_name="demo",
-    query_text="This is a query document"
+    collection_name=name,
+    query_text=prompt
 )
-print(search_result)
+print(f"Found matching documents: {len(search_result)}")
+
+result = [entry.document for entry in search_result]
+
+print(f"Extracted raw documents from results: {result}")
+print("\n\n")
+print("Sending promt to model")
+print("\n\n")
+
+output = ollama.generate(
+    prompt=f"Using data: {result}. Respond to this prompt: {prompt}",
+    model="llama3.2",
+)
+print("\n\nGot response from model: ")
+print(output["response"])

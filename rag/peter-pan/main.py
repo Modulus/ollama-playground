@@ -48,6 +48,7 @@ def get_embeddings(filename, chunks):
 
 def embed_into_model(chunk):
     print("embedding chunk")
+    ollama.em
     return ollama.embeddings(model=MODEL_NAME, prompt=chunk)["embedding"]
 
 
