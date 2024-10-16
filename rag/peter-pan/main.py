@@ -3,10 +3,14 @@ import os
 import json
 import numpy as np
 from numpy.linalg import norm
-
+from textwrap import wrap
 # MODEL_NAME = "ollama3.2"
 MODEL_NAME="nomic-embed-text"
 # MODEL_NAME = "mistral"
+
+
+
+
 
 
 def parse_file(filename):
@@ -48,7 +52,6 @@ def get_embeddings(filename, chunks):
 
 def embed_into_model(chunk):
     print("embedding chunk")
-    ollama.em
     return ollama.embeddings(model=MODEL_NAME, prompt=chunk)["embedding"]
 
 
