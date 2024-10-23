@@ -8,10 +8,6 @@ MODEL_NAME="nomic-embed-text"
 # MODEL_NAME = "mistral"
 
 
-
-
-
-
 def parse_file(filename):
     with open(filename, mode="r", encoding="utf-8-sig") as file:
         paragraphs = []
