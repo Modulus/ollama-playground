@@ -4,9 +4,6 @@ import functools
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-
-
-
 def chunkify(file: str) -> List[str]:
     text_list = extract_text_from_pdf(file)
 
