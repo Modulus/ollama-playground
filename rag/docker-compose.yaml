@@ -1,13 +1,13 @@
 services:
-  chromadb:
-    image: chromadb/chroma
-    ports:
-      - "8000:8000"
-    volumes:
-      - chroma-data:/chromadb/data
+  # chromadb:
+  #   image: chromadb/chroma
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - chroma-data:/chromadb/data
   qdrant:
     container_name: qdrant
-    image: qdrant/qdrant:v1.7.3
+    image: qdrant/qdrant #:v1.7.3
     ports:
       - "6333:6333"
       - "6334:6334"

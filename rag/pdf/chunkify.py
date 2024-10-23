@@ -31,7 +31,3 @@ def extract_text_from_pdf(file: str) -> List[str]:
             text_list.append(text)
 
     return text_list
-
-
-
-chunks = chunkify(file="mypdf.pdf")
