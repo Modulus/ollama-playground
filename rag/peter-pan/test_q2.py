@@ -5,6 +5,8 @@ import ollama
 import random
 # Initialize Ollama model
 
+## Using fast embeddings insertion
+
 # Generate embeddings for niche applications
 documents = [
     "Taking place in San Francisco, USA, from the 10th to the 12th of June, 2024, the Global Developers Conference is the annual gathering spot for developers worldwide, offering insights into software engineering, web development, and mobile applications.",

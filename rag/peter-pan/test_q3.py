@@ -1,5 +1,5 @@
 from qdrant_client import QdrantClient
-
+from ollama import Ollama
 # Initialize the client
 client = QdrantClient("localhost", port=6333) # For production
 # client = QdrantClient(":memory:") # For small experiments
@@ -18,11 +18,27 @@ ids = [42, 2]
 
 # Use the new add() instead of upsert()
 # This internally calls embed() of the configured embedding model
-client.add(
+# client.add(
+#     collection_name="demo_collection",
+#     documents=docs,
+#     metadata=metadata,
+#     ids=ids
+# )
+
+# Initialize Ollama model
+model = Ollama("nomic-embed-text")
+
+# Generate embeddings for niche applications
+text = "Ollama excels in niche applications with specific embeddings."
+embeddings = model.embed(text)
+
+
+qdrant_client.upsert(
     collection_name="demo_collection",
-    documents=docs,
-    metadata=metadata,
-    ids=ids
+    points=Batch(
+        ids=[1],
+        vectors=[embeddings],
+    )
 )
 
 search_result = client.query(
