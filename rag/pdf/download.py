@@ -2,18 +2,7 @@ import urllib.request
 import sys
 import os
 
-def get_root_folder():
-
-    # get current directory
-    path = os.getcwd()
-    print("Current Directory", path)
-
-    
-    # prints parent directory
-    path = os.path.abspath(os.path.join(path, os.pardir, os.pardir))
-    print("Root folder", path)
-    return path
-
+from helper import get_root_folder
 
 root_folder = get_root_folder()
 print(f"Root folder: {root_folder}")

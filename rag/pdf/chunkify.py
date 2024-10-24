@@ -10,6 +10,15 @@ def chunkify(file: str, size=100, overlap=10) -> List[str]:
     print(len(text_list))
 
     doc = functools.reduce(lambda x, y: x + y, text_list)
+    doc = " ".join(doc.split()) # Remove all newlines and tabs
+
+    print(doc.count("\n"))
+
+    # doc = ""
+    # for text in text_list:
+    #     doc += " ".join(text.split())
+
+
 
     chunks = get_chunks_from_document(doc, size, overlap)
 

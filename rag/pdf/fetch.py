@@ -25,7 +25,6 @@ result = client.search(
 
 # extract hits  from search result
 text_list = [ text.payload["text"] for text in result]
-# print(f"Found matching documents: {text_list}")
 
 output = ollama.generate(
     prompt=f"Using data from {text_list} with prompt: {prompt}",
