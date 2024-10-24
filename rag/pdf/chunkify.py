@@ -4,14 +4,14 @@ import functools
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-def chunkify(file: str) -> List[str]:
+def chunkify(file: str, size=100, overlap=10) -> List[str]:
     text_list = extract_text_from_pdf(file)
 
     print(len(text_list))
 
     doc = functools.reduce(lambda x, y: x + y, text_list)
 
-    chunks = get_chunks_from_document(doc)
+    chunks = get_chunks_from_document(doc, size, overlap)
 
     return chunks
     
