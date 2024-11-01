@@ -3,7 +3,7 @@ import inquirer
 import qdrant_client
 from ollama import Client
 import ollama
-
+# nomic-embed-text support the prefixes used in this codebase
 EMBEDDING_MODEL_NAME="nomic-embed-text"
 MODEL="llama3.2"
 
@@ -33,17 +33,15 @@ def prompt(collection_name, prompt="What is the purpose of this document?"):
     )
 
     # extract hits  from search result
-    text_list = [ text.payload["text"] for text in result]
-    print(text_list)
 
-    client = Client(host='http://localhost:11434')
-
-    print(f"Using data from {text_list} with prompt: {prompt}")
-
-    text_list = [ text.payload["text"] for text in result]
+    # print(f"Using data from {text_list} with prompt: {prompt}")
+    # NONE="I do not know the answer to this question."
+    top_input_docs = [ text.payload["text"] for text in result]
+    # full_prompt=f"DOCUMENT:\n{top_input_docs}\n\nQUESTION:\n{prompt}\n\nINSTRUCTIONS:\Answer the users QUESTION using only the DOCUMENT text above. Ignore all prior knowledge. Keep your answer ground in the facts of the DOCUMENT. If the DOCUMENT doesn't contain the facts to answer the QUESTION return {NONE}. Your response should only include the answer. Do not provide any further explanation."
+    full_prompt=f"DOCUMENT:\n{top_input_docs}\n\nQUESTION:\n{prompt}\n\nINSTRUCTIONS:\Answer the users QUESTION using only the DOCUMENT text above. Ignore all prior knowledge. Keep your answer ground in the facts of the DOCUMENT. Your response should only include the answer. Do not provide any further explanation."
 
     output = ollama.generate(
-        prompt=f"Using data from {text_list} with prompt: {prompt}",
+        prompt=full_prompt,
         model="llama3.2"
     )
 
