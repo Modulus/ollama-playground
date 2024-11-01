@@ -47,8 +47,8 @@ def embed(file):
         for index, chunk in enumerate(chunks):
             # Embed into model and store vectors with text as payload
             print("Embedding chunk into model with payload")
-            embeding_chunk = f"search_document: {chunk}"
-            embeddings = ollama.embeddings(model=MODEL_NAME, prompt=embeding_chunk)["embedding"]
+            chunck_with_prefix = f"search_document: {chunk}"
+            embeddings = ollama.embeddings(model=MODEL_NAME, prompt=chunck_with_prefix)["embedding"]
 
             client = qdrant_client.QdrantClient(host="localhost", port=6333, timeout=1000)
         
