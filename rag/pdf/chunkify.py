@@ -36,6 +36,7 @@ def extract_text_from_pdf(file: str) -> List[str]:
     text_list : List[str] = []
     for page in reader.pages:
         text = page.extract_text()
+        # Only add text if it is not empty
         if text:
             text_list.append(text)
 
