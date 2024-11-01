@@ -20,17 +20,12 @@ def list_collections():
         print(f"Error fetching collections from Qdrant: {e}")
 
 
-def prompt(collection_name):
+def prompt(collection_name, prompt="What is the purpose of this document?"):
 
     client = qdrant_client.QdrantClient(host="localhost", port=6333, timeout=1000)
 
-
-    # while True:
-
-
-        # print(">>> ")
-    prompt="What is the purpose of this document?"
-    matching_vectors = ollama.embeddings(model=EMBEDDING_MODEL_NAME, prompt=prompt)
+    prompt_with_prefix = f"search_query: {prompt}"
+    matching_vectors = ollama.embeddings(model=EMBEDDING_MODEL_NAME, prompt=prompt_with_prefix)
 
     result = client.search(
         collection_name=collection_name,
@@ -45,23 +40,14 @@ def prompt(collection_name):
 
     print(f"Using data from {text_list} with prompt: {prompt}")
 
-    # response = client.chat(model=MODEL, messages=[
-    #     {
-    #         'role': 'user',
-    #         'content': "Using data from {text_list} with prompt: {prompt}"
-    #     },
-    # ])
-
-    # print(response)
-
-
-    # extract hits  from search result
     text_list = [ text.payload["text"] for text in result]
 
     output = ollama.generate(
         prompt=f"Using data from {text_list} with prompt: {prompt}",
         model="llama3.2"
     )
+
+    return output
 
 
 if __name__ == "__main__":
@@ -77,5 +63,7 @@ if __name__ == "__main__":
 
     answers = inquirer.prompt(questions)
     pprint(answers)
-
-    prompt(collection_name=answers["collection"])
+    while True:
+        query = input(">>> ")
+        output = prompt(collection_name=answers["collection"], prompt=query)
+        print(output["response"])

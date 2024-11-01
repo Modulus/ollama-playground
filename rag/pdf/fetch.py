@@ -15,6 +15,7 @@ collection_name = "nasjonal_digitaliseringsstrategi_ny"
 client = qdrant_client.QdrantClient(host="localhost", port=6333, timeout=1000)
 
 prompt="What is the purpose of this document?"
+prompt_with_prefix = f"search_query: {prompt}"
 matching_vectors = ollama.embeddings(model=MODEL_NAME, prompt=prompt)
 
 
