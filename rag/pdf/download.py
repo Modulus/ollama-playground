@@ -19,6 +19,7 @@ urls = [
     "https://www.regjeringen.no/contentassets/c499c3b6c93740bd989c43d886f65924/no/pdfs/nasjonal-digitaliseringsstrategi_ny.pdf",
     "https://www.swift.com/sites/default/files/files/swift-iso20022fordummies-6thedition-2022.pdf",
     "https://www.regjeringen.no/contentassets/7400c9d08a5543b8912fbf700f3344fd/no/pdfs/stm202320240031000dddpdfs.pdf",
+    "https://dokument.fremtind.no/documents/reisevilkar-dnb-kredittkort-og-programavtaler.pdf"
 ]
 
 
