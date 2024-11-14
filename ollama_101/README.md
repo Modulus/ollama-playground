@@ -18,3 +18,6 @@ ollama run mario
 
 
 ## Code
+fastapi dev api.py
+
+curl --header "Content-Type: application/json" -X POST -d '{"question": "how much is the fish?"}' http://localhost:8000/ask
