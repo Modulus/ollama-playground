@@ -14,7 +14,9 @@ from fastapi.responses import (
     UJSONResponse,
 )
 from fastapi import FastAPI
-
+import ollama
+from ollama import generate
+import random
 # from fastapi import FastAPI, StreamingResponse
 
 app = FastAPI()
@@ -25,15 +27,22 @@ class Question(BaseModel):
 
 class Answer(BaseModel):
     answer: str
-    person: str
 
 def generate_names():
     for _ in range(10000):
         yield faker.name() + '\n'
 
 def generate_answers(question: Question):
-    for _ in range(10000):
-        yield Answer(answer=faker.sentence(), person=faker.name())
+    print(f"Asking llama3.2: {question}")
+    response = ollama.chat(model='llama3.2', messages=[
+    {
+        'role': 'user',
+        'content': question.question,
+    },
+    ])
+    print(response['message']['content'])
+
+    return Answer(answer=response['message']['content'])
 
 @app.get("/stream")
 async def read_stream():
