@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from faker import Faker
 from pydantic import BaseModel
+import json
 
 from fastapi.responses import (
     FileResponse,
@@ -42,7 +43,7 @@ def generate_answers(question: Question):
     ])
     print(response['message']['content'])
 
-    return Answer(answer=response['message']['content'])
+    return response['message']['content']
 
 @app.get("/stream")
 async def read_stream():
@@ -54,4 +55,5 @@ async def get_q():
 
 @app.post("/ask")
 async def ask_question(question: Question):
-    return generate_answers(question)
+    return StreamingResponse(json.dumps({"msg": generate_answers(question)}))
+
