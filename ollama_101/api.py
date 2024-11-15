@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from faker import Faker
 from pydantic import BaseModel
 import json
+import os
 
 from fastapi.responses import (
     FileResponse,
@@ -17,6 +18,7 @@ from fastapi.responses import (
 from fastapi import FastAPI
 import ollama
 from ollama import generate
+from ollama import Client
 import random
 # from fastapi import FastAPI, StreamingResponse
 
@@ -34,16 +36,26 @@ def generate_names():
         yield faker.name() + '\n'
 
 def generate_answers(question: Question):
-    print(f"Asking llama3.2: {question}")
-    response = ollama.chat(model='llama3.2', messages=[
-    {
-        'role': 'user',
-        'content': question.question,
-    },
-    ])
-    print(response['message']['content'])
+    OLLAMA_URL = os.environ.get('OLLAMA_BASE_URL', 'http://localhost:11434')
 
-    return response['message']['content']
+    client = Client(host=OLLAMA_URL)
+
+    print(f"Talking to ollama on url: {OLLAMA_URL}")
+
+    print(f"Asking llama3.2: {question}")
+    response = client.chat(
+        model='llama3.2', messages=[
+            {
+                'role': 'user',
+                'content': question.question,
+            },
+        ],
+        stream=False
+    )
+
+
+        
+    return response['message']['content'] 
 
 @app.get("/stream")
 async def read_stream():
@@ -55,5 +67,5 @@ async def get_q():
 
 @app.post("/ask")
 async def ask_question(question: Question):
-    return StreamingResponse(json.dumps({"msg": generate_answers(question)}))
+    return StreamingResponse(json.dumps({"msg": generate_answers(question)} ))
 

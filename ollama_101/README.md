@@ -21,3 +21,6 @@ ollama run mario
 fastapi dev api.py
 
 curl --header "Content-Type: application/json" -X POST -d '{"question": "how much is the fish?"}' http://localhost:8000/ask
+
+## TODO 
+Add ollama access from inside container

@@ -1,0 +1,16 @@
+FROM python:3.13
+
+
+WORKDIR /code
+
+
+# COPY ./requirements.txt /code/requirements.txt
+
+
+RUN pip install ollama "fastapi[standard]" faker pydantic
+
+
+COPY ./ /code/app
+
+
+CMD ["fastapi", "run", "app/api.py", "--port", "80"]

@@ -16,7 +16,11 @@ response = ollama.chat(model='llama3.2', messages=[
     'role': 'user',
     'content': question,
   },
-])
+],
+stream=False
+)
+
+
 print(response['message']['content'])
 
 print(f"Asking phi3.5: {question}")
