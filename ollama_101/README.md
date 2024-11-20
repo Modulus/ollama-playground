@@ -24,3 +24,7 @@ curl --header "Content-Type: application/json" -X POST -d '{"question": "how muc
 
 ## TODO 
 Add ollama access from inside container
+
+
+### bru test api
+bru run api.bru -o test.json

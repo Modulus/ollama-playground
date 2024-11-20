@@ -1,0 +1,17 @@
+post {
+  url: http://127.0.0.1:8000/raw
+}
+
+body {
+   { "question": "What magic users exists in DnD 5th edition" }
+}
+
+headers {
+  content-type: application/json
+}
+
+tests {
+  test("should be able to get response", function() {
+    expect(res.status).to.equal(200);
+  });
+}
